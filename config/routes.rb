@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :appointments
   namespace :v1 do
     get 'users/create'
     get 'users/update'
