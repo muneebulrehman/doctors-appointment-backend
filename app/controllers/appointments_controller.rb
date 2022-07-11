@@ -5,9 +5,9 @@ class AppointmentsController < ApplicationController
   def index
     if (@current_user)
       @appointments = Appointment.where({user_name: current_user.user_name})
-      render json: @appointments
+      render json: @appointments, status: :ok
     else
-      render json: {error: appointment_error(:index)}
+      render json: {error: appointment_error(:index)}, status: 422
     end
   end
   # GET /appointments/1
