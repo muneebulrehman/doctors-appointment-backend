@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  resources :appointments
-  namespace :v1 do
-    get 'users/create'
-    get 'users/update'
-    get 'users/destroy'
+  namespace :api do
+    # get 'users/create'
+    # get 'users/update'
+    # get 'users/destroy'
+    # resources :users, only: :create
+    post '/users', to: 'users#create'
+    post '/auth', to: 'users#authenticate'
+    resources :appointments
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
