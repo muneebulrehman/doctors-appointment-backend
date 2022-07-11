@@ -7,6 +7,7 @@ class AppointmentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get index' do
     get appointments_url, as: :json
+    p response
     assert_response :success
   end
 

@@ -3,11 +3,13 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments
   def index
-    @appointments = Appointment.all
-
-    render json: @appointments
+    if (@current_user)
+      @appointments = Appointment.where({user_name: current_user.user_name})
+      render json: @appointments
+    else
+      render json: {error: appointment_error(:index)}
+    end
   end
-
   # GET /appointments/1
   def show
     render json: @appointment
