@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     post '/users', to: 'users#create'
     post '/auth', to: 'users#authenticate'
     resources :appointments
+    resources :doctors, only: [:index, :show]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
