@@ -8,10 +8,6 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def show
-    render json: @current_user
-  end
-
   def login
     @user = User.where(user_name: params[:user_name])
     if @user.present?
