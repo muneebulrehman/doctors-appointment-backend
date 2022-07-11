@@ -1,10 +1,8 @@
 class Api::UsersController < ApplicationController
-  before_action :set_user, only: %i[update destroy]
 
   def create
     @user = User.new(user_params)
     if @user.save
-      # token = encode_token({ user_id: @user.id })
       render json: { success: true, message: 'User created successfully' }, status: :created
     else
       render json: { success: false, message: @user.errors.full_messages }, status: :unprocessable_entity
@@ -12,8 +10,12 @@ class Api::UsersController < ApplicationController
   end
 
   def login
-    @user = User.find(params[:user_name])
-    # current_user(@user) if @user
+    @user = User.where(user_name: params[:user_name])
+    if @user.present?
+      render json: { success: true, message: 'User logged in successfully' }, status: :ok
+    else
+      render json: { success: false, message: 'User not found' }, status: :not_found
+    end
   end
 
   # def update
@@ -30,10 +32,6 @@ class Api::UsersController < ApplicationController
   # end
 
   private
-
-  def set_user
-    @user = User.find(params[:id])
-  end
 
   def user_params
     params.require(:user).permit(:user_name, :email)
