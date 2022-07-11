@@ -7,7 +7,7 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
       consumes 'application/json'
       parameter name: 'Cookie', in: :header, type: :string
 
-      response '200', 'appointments retrieved' do
+      response '200', 'appointments received' do
         first_user = User.all[0]
         let('Cookie') { "user_name=#{first_user.user_name}" }
         # let('Cookie') { 'fingerprint_hash=whatever;other_data=true;' }
