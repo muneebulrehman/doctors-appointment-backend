@@ -30,40 +30,40 @@ jobs:
       - name: Check node_modules existence
         run: |
           if [ -d "node_modules/" ]; then echo -e "\e[1;31mThe node_modules/ folder was pushed to the repo. Please remove it from the GitHub repository and try again."; echo -e "\e[1;32mYou can set up a .gitignore file with this folder included on it to prevent this from happening in the future." && exit 1; fi
-rspec-test:
-    name: RSpec
-    needs: Rubocop
-    runs-on: ubuntu-18.04
-    services:
-      postgres:
-        image: postgres:11
-        ports:
-        - 5432:5432    
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ${{ env.POSTGRES_TEST_DATABASE }}
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-      - name: Install postgres client
-        run: sudo apt-get install libpq-dev
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundler install
-      - name: Create database
-        run: |
-          bundler exec rails db:create RAILS_ENV=test
-          bundler exec rails db:migrate RAILS_ENV=test
-          bundler exec rails db:seed RAILS_ENV=test
-      - name: Run tests
-        run: bundler exec rake
-      - name: Upload coverage results    
-        uses: actions/upload-artifact@master
-        if: always()
-        with:
-          name: coverage-report
-          path: coverage     
+  rspec-test:
+      name: RSpec
+      needs: Rubocop
+      runs-on: ubuntu-18.04
+      services:
+        postgres:
+          image: postgres:11
+          ports:
+          - 5432:5432    
+          env:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: ${{ env.POSTGRES_TEST_DATABASE }}
+      steps:
+        - uses: actions/checkout@v1
+        - uses: actions/setup-ruby@v1
+          with:
+            ruby-version: ${{ env.RUBY_VERSION }}
+        - name: Install postgres client
+          run: sudo apt-get install libpq-dev
+        - name: Install dependencies
+          run: |
+            gem install bundler
+            bundler install
+        - name: Create database
+          run: |
+            bundler exec rails db:create RAILS_ENV=test
+            bundler exec rails db:migrate RAILS_ENV=test
+            bundler exec rails db:seed RAILS_ENV=test
+        - name: Run tests
+          run: bundler exec rake
+        - name: Upload coverage results    
+          uses: actions/upload-artifact@master
+          if: always()
+          with:
+            name: coverage-report
+            path: coverage     
