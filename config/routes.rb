@@ -3,7 +3,6 @@ Rails.application.routes.draw do
     # get 'users/create'
     # get 'users/update'
     # get 'users/destroy'
-    # resources :users, only: :create
     post '/users', to: 'users#create'
     post '/auth', to: 'users#authenticate'
     resources :appointments

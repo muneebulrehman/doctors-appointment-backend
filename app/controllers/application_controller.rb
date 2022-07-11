@@ -1,4 +1,3 @@
 class ApplicationController < ActionController::API
-  @current_user = nil
-  @logged_in = false
+  @current_user = nil # parse request and check username
 end

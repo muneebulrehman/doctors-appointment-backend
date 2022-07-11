@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def login
+  def authenticate
     @user = User.where(user_name: params[:user_name])
     if @user.present?
       @current_user = @user
@@ -19,12 +19,6 @@ class Api::UsersController < ApplicationController
     else
       render json: { success: false, message: 'User not found' }, status: :not_found
     end
-  end
-
-  def logout
-    @current_user = nil
-    @logged_in = false
-    render json: { success: true, message: 'User logged out successfully' }, status: :ok
   end
 
   private
