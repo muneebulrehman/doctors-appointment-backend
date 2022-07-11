@@ -46,10 +46,9 @@ group :development, :test do
   gem 'dotenv-rails'
 
   gem 'rubocop', '~> 1.30'
-  
+
   gem 'rspec-rails'
   gem 'rswag-specs'
-
 end
 
 group :development do

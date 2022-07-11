@@ -12,9 +12,9 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
       # end
 
       response '422', 'invalid request' do
-        let(:Authorization) {''}
+        let(:Authorization) { '' }
         run_test! do |res|
-          expect(res.body).to eq({error: appointment_error(:index)}.to_json)
+          expect(res.body).to eq({ error: appointment_error(:index) }.to_json)
         end
       end
     end

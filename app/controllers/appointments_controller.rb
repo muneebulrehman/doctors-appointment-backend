@@ -3,13 +3,14 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments
   def index
-    if (@current_user)
-      @appointments = Appointment.where({user_name: current_user.user_name})
+    if @current_user
+      @appointments = Appointment.where({ user_name: current_user.user_name })
       render json: @appointments, status: :ok
     else
-      render json: {error: appointment_error(:index)}, status: 422
+      render json: { error: appointment_error(:index) }, status: 422
     end
   end
+
   # GET /appointments/1
   def show
     render json: @appointment
