@@ -48,17 +48,17 @@ doctor_6 = Doctor.create(
 
 now = DateTime.now
 
-user_1 = User.create({
-  user_name: "bob", email: "bob@fake", 
+user_1 = User.create(
+  user_name: "bobbob", email: "bob@fake", 
   # password: "123456"
-})
-user_2 = User.create({
-  user_name: "jane", email: "jane@fake", 
+)
+user_2 = User.create(
+  user_name: "janejane", email: "jane@fake", 
   # password: "123456"
-})
+)
 
-appointment_1 = Appointment.create({user: user_1, doctor: doctor_1, date: now})
-appointment_2 = Appointment.create({user: user_1, doctor: doctor_2, date: now.next_day})
-appointment_2 = Appointment.create({user: user_1, doctor: doctor_3, date: now.next_day.next_day})
-appointment_3 = Appointment.create({user: user_2, doctor: doctor_1, date: now.next_day})
-appointment_4 = Appointment.create({user: user_2, doctor: doctor_2, date: now.next_day.next_day})
+appointment_1 = Appointment.create(user: user_1, doctor: doctor_1, date: now)
+appointment_2 = Appointment.create(user: user_1, doctor: doctor_2, date: now.next_day)
+appointment_2 = Appointment.create(user: user_1, doctor: doctor_3, date: now.next_day.next_day)
+appointment_3 = Appointment.create(user: user_2, doctor: doctor_1, date: now.next_day)
+appointment_4 = Appointment.create(user: user_2, doctor: doctor_2, date: now.next_day.next_day)

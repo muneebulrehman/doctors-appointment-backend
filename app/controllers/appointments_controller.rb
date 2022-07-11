@@ -1,10 +1,15 @@
+require 'pry'
+
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show update destroy]
+  before_action :authenticate_user
 
   # GET /appointments
   def index
+    # binding.pry
     if @current_user
-      @appointments = Appointment.where({ user_name: current_user.user_name })
+      user = User.where({ user_name: @current_user })
+      @appointments = Appointment.where({ user_id: user[0].id })
       render json: @appointments, status: :ok
     else
       render json: { error: appointment_error(:index) }, status: 422
