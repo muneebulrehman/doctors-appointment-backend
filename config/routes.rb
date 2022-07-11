@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
   namespace :api do
-    # get 'users/create'
-    # get 'users/update'
-    # get 'users/destroy'
-    # resources :users, only: :create
     post '/signup', to: 'users#create'
     post '/login', to: 'users#login'
     get '/logout', to: 'users#logout'
