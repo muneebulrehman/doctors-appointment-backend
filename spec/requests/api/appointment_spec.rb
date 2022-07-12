@@ -101,6 +101,14 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
           expect(res.body).to eq({ error: appointment_error(:missing_param) }.to_json)
         end
       end
+
+      response '422', 'wrong date' do
+        let('Cookie') { "user_name=#{first_user.user_name}" }
+        let(:appointment) { { doctor_id: Doctor.all[0].id, date: DateTime.now } }
+        run_test! do |res|
+          expect(res.body).to eq({ error: appointment_error(:wrong_date) }.to_json)
+        end
+      end
     end
   end
 end
