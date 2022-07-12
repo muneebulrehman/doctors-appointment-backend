@@ -4,6 +4,8 @@ class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show update destroy]
   before_action :authenticate_user
 
+  rescue_from Date::Error, with: :invalid_date
+
   # GET /appointments
   def index
     # binding.pry
@@ -23,8 +25,7 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments
   def create
-    user_id = User.where({ user_name: @current_user })[0]&.id
-    params[:user_id] = user_id
+    params[:user_id] = which_user_id
     params[:date] = params[:date]&.to_datetime
 
     @appointment = Appointment.new(appointment_params)
@@ -34,20 +35,17 @@ class AppointmentsController < ApplicationController
     else
       render json: { error: @appointment.errors }, status: :unprocessable_entity
     end
-  rescue ActionController::ParameterMissing => e
-    puts e
-    puts appointment_error(:missing_param)
-    render json: { error: appointment_error(:missing_param) }, status: 422
-  rescue Date::Error
-    render json: { error: appointment_error(:wrong_date) }, status: 422
   end
 
   # PATCH/PUT /appointments/1
   def update
+    params[:user_id] = which_user_id
+    params[:date] = params[:date].to_datetime if params[:date]
+    # CHECK IF USER IS UPDATING HIS APPOINTMENT
     if @appointment.update(appointment_params)
       render json: @appointment
     else
-      render json: @appointment.errors, status: :unprocessable_entity
+      render json: { error: @appointment.errors }, status: :unprocessable_entity
     end
   end
 
@@ -68,5 +66,9 @@ class AppointmentsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def appointment_params
     params.permit(:doctor_id, :date, :user_id)
+  end
+
+  def invalid_date
+    render json: { error: appointment_error(:invalid_date) }, status: 500
   end
 end
