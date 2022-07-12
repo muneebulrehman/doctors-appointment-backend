@@ -24,15 +24,18 @@ class AppointmentsController < ApplicationController
   # POST /appointments
   def create
     user_id = User.where({ user_name: @current_user })[0]&.id
-    appointment_params[:user_id] = user_id
-    puts appointment_params
-    @appointment = Appointment.new(appointment_params)
+    params[:user] = user_id
+    puts "HELLO", params
+    @appointment = Appointment.new(appointment_params) #ERROR
 
     if @appointment.save
-      render json: @appointment, status: :created, location: @appointment
+      # render json: @appointment, status: :created, location: @appointment
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
+  rescue ActionController::ParameterMissing => er
+    p appointment_error(:missing_param)
+    render json: { error: appointment_error(:missing_param) }, status: 422
   end
 
   # PATCH/PUT /appointments/1

@@ -86,13 +86,21 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
       #   run_test!
       # end
 
-      # response '422', 'missing fields' do
-      #   let('Cookie') { "user_name=#{first_user.user_name}" }
-      #   let(:appointment) { { doctor_id: 'FAKE_ID', date: DateTime.now } }
-      #   run_test! do |res|
-      #     expect(res.body).to eq({ error: appointment_error(:create) }.to_json)
-      #   end
-      # end
+      response '422', 'missing fields' do
+        let('Cookie') { "user_name=#{first_user.user_name}" }
+        let(:appointment) { { } }
+        run_test! do |res|
+          expect(res.body).to eq({ error: appointment_error(:missing_param) }.to_json)
+        end
+      end
+
+      response '422', 'wrong field' do
+        let('Cookie') { "user_name=#{first_user.user_name}" }
+        let(:appointment) { { doctor_id: 'FAKE_ID', date: DateTime.now } }
+        run_test! do |res|
+          expect(res.body).to eq({ error: appointment_error(:missing_param) }.to_json)
+        end
+      end
     end
   end
 end
