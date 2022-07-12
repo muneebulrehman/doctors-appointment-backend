@@ -79,35 +79,36 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
         required: %w[doctor_id date]
       }
 
-      # response '201', 'appointment created' do
-      #   doctor = Doctor.all[0]
-      #   let(:appointment) { { doctor_id: doctor&.id, date: DateTime.now } }
-      #   let('Cookie') { "user_name=#{first_user.user_name}" }
-      #   run_test!
-      # end
-
-      response '422', 'missing fields' do
+      response '201', 'appointment created' do
+        doctor = Doctor.all[0]
+        let(:appointment) { { doctor_id: doctor&.id, date: DateTime.now } }
         let('Cookie') { "user_name=#{first_user.user_name}" }
-        let(:appointment) { { } }
         run_test! do |res|
-          expect(res.body).to eq({ error: appointment_error(:missing_param) }.to_json)
+          expect(JSON.parse(res.body).keys).to eq(%w[id user_id doctor_id date created_at updated_at])
         end
       end
 
-      response '422', 'wrong field' do
+      response '422', 'missing fields' do
+        let('Cookie') { "user_name=#{first_user.user_name}" }
+        let(:appointment) { {} }
+        run_test! do |res|
+          expect(res.body).to eq({ error: { date: ["can't be blank"], doctor_id: ["can't be blank"],
+                                            doctor: ['must exist'] } }.to_json)
+        end
+      end
+
+      response '422', 'wrong doctor field' do
         let('Cookie') { "user_name=#{first_user.user_name}" }
         let(:appointment) { { doctor_id: 'FAKE_ID', date: DateTime.now } }
         run_test! do |res|
-          expect(res.body).to eq({ error: appointment_error(:missing_param) }.to_json)
+          expect(res.body).to eq({ error: { doctor: ['must exist'] } }.to_json)
         end
       end
 
       response '422', 'wrong date' do
         let('Cookie') { "user_name=#{first_user.user_name}" }
-        let(:appointment) { { doctor_id: Doctor.all[0].id, date: DateTime.now } }
-        run_test! do |res|
-          expect(res.body).to eq({ error: appointment_error(:wrong_date) }.to_json)
-        end
+        let(:appointment) { { doctor_id: Doctor.all[0].id, date: 'FAKE_DATE' } }
+        run_test!
       end
     end
   end

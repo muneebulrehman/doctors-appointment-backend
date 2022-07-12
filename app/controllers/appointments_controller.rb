@@ -23,21 +23,19 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments
   def create
-    appointment_params
     user_id = User.where({ user_name: @current_user })[0]&.id
-    params.permit(:user_id)
     params[:user_id] = user_id
-    params[:date] = params[:date].to_datetime
-    puts "HELLO", params
-    @appointment = Appointment.new(appointment_params) #ERROR
+    params[:date] = params[:date]&.to_datetime
+
+    @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
-      # render json: @appointment, status: :created, location: @appointment
+      render json: @appointment, status: :created, location: @appointment
     else
-      render json: @appointment.errors, status: :unprocessable_entity
+      render json: { error: @appointment.errors }, status: :unprocessable_entity
     end
-  rescue ActionController::ParameterMissing => er
-    puts er
+  rescue ActionController::ParameterMissing => e
+    puts e
     puts appointment_error(:missing_param)
     render json: { error: appointment_error(:missing_param) }, status: 422
   rescue Date::Error
@@ -69,7 +67,6 @@ class AppointmentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def appointment_params
-    params.permit(:doctor_id, :date)
-    # require(:appointment)
+    params.permit(:doctor_id, :date, :user_id)
   end
 end
