@@ -30,7 +30,6 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
   end
 
   path '/api/appointments/{id}' do
-    first_user = User.all[0]
     get 'Retrieves the appointment' do
       tags 'Appointments', 'Appointment'
       consumes 'application/json'
@@ -69,7 +68,6 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
   end
 
   path '/api/appointments' do
-    first_user = User.all[0]
     post 'Creates an appointment' do
       tags 'Appointments', 'Appointment'
       consumes 'application/json'
@@ -122,8 +120,6 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
   # EDIT APPOINTMENT
 
   path '/api/appointments/{id}' do
-    first_user = User.all[0]
-    second_user = User.all[1]
     appointments = Appointment.where({ user_id: first_user.id })
     let(:id) { appointments[0].id }
     put 'Edits the appointment' do
