@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+gem 'pry', '~> 0.13.1'
+
+gem 'rswag-api'
+gem 'rswag-ui'
+
 ruby '3.1.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -43,6 +48,9 @@ group :development, :test do
   gem 'dotenv-rails'
 
   gem 'rubocop', '~> 1.30'
+
+  gem 'rspec-rails'
+  gem 'rswag-specs'
 end
 
 group :development do
