@@ -7,7 +7,7 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
   second_user_username = second_user.user_name
 
   path '/api/appointments' do
-    get 'Retrieves existing appointments' do
+    get 'Retrieves all appointments of the user' do
       tags 'Appointments'
       consumes 'application/json'
       parameter name: 'Cookie', in: :header, type: :string
