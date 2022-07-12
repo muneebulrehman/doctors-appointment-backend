@@ -23,6 +23,9 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments
   def create
+    user_id = User.where({ user_name: @current_user })[0]&.id
+    appointment_params[:user_id] = user_id
+    puts appointment_params
     @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
@@ -51,10 +54,12 @@ class AppointmentsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_appointment
     @appointment = Appointment.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: appointment_error(:show) }, status: 404
   end
 
   # Only allow a list of trusted parameters through.
   def appointment_params
-    params.require(:appointment).permit(:user_id, :doctor_id, :date)
+    params.require(:appointment).permit(:doctor_id, :date)
   end
 end

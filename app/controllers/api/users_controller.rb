@@ -9,7 +9,7 @@ class Api::UsersController < ApplicationController
   end
 
   def authenticate
-    response.headers['Set-Cookie'] = "user_namae"
+    response.headers['Set-Cookie'] = 'user_namae'
 
     @user = User.where(user_name: params[:user_name])
     if @user.present?
