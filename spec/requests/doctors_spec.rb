@@ -3,7 +3,6 @@ require 'rails_helper'
 # Write the tests for doctor controller
 
 RSpec.describe '/doctors', type: :request do
-
   # Test for GET /doctors
   describe 'GET /doctors' do
     it 'should return all doctors' do

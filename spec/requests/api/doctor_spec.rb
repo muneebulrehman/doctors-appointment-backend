@@ -15,7 +15,7 @@ RSpec.describe '/api/doctors', type: :request do
                    name: { type: :string },
                    speciality: { type: :string },
                    image: { type: :string },
-                   price: { type: :number},
+                   price: { type: :number },
                    bio: { type: :string },
                    created_at: { format: 'date-time' },
                    updated_at: { format: 'date-time' }
@@ -49,7 +49,7 @@ RSpec.describe '/api/doctors', type: :request do
             photo: 'Sample image',
             bio: 'famous on youtube'
           ).id
-        end        
+        end
         run_test!
       end
     end
