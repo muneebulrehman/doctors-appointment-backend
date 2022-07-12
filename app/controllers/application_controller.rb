@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ErrorHelper
+  include SuccessHelper
   @current_user = nil # parse request and check username
 
   def authenticate_user
@@ -15,7 +16,7 @@ class ApplicationController < ActionController::API
     @current_user = user_name_cookie_splitted[1]
   end
 
-  def which_user_id
+  def request_user_id
     return unless @current_user
 
     User.where({ user_name: @current_user })[0]&.id
