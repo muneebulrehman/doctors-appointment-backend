@@ -27,4 +27,27 @@ RSpec.describe 'api/users', type: :request do
       end
     end
   end
+  path '/api/auth' do
+    post 'Login for user' do
+      tags 'Users'
+      consumes 'application/json'
+
+      parameter name: :user, in: :body, schema: {
+        type: :object,
+        properties: {
+          user_name: { type: :string }
+        },
+        required: ['user_name']
+      }
+      response '200', 'User logged in successfully' do
+        let(:user) { { user_name: 'bobbob' } }
+        run_test!
+      end
+
+      response '404', 'Not found' do
+        let(:user) { { user_name: 'bully2' } }
+        run_test!
+      end
+    end
+  end
 end
