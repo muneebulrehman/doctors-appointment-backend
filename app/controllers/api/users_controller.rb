@@ -10,7 +10,6 @@ class Api::UsersController < ApplicationController
   end
 
   def authenticate
-    
     @user = User.where(user_name: params[:user_name])
     if @user.present?
       response.headers['Set-Cookie'] = "user_name=#{params[:user_name]}"
