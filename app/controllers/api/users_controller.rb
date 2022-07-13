@@ -2,6 +2,7 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      response.headers['Set-Cookie'] = "user_name=#{user_params[:user_name]}"
       render json: { success: true, message: 'User created successfully' }, status: :created
     else
       render json: { success: false, message: @user.errors.full_messages }, status: :unprocessable_entity
@@ -9,9 +10,9 @@ class Api::UsersController < ApplicationController
   end
 
   def authenticate
-    response.headers['Set-Cookie'] = "user_name=#{params[:user_name]}"
     @user = User.where(user_name: params[:user_name])
     if @user.present?   
+      response.headers['Set-Cookie'] = "user_name=#{params[:user_name]}"
       render json: { success: true, message: 'User logged in successfully' }, status: :ok
     else
       render json: { success: false, message: 'User not found' }, status: :not_found
