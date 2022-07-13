@@ -31,6 +31,7 @@ RSpec.describe 'api/users', type: :request do
     post 'Login for user' do
       tags 'Users'
       consumes 'application/json'
+      
       parameter name: :user, in: :body, schema: {
         type: :object,
         properties: {

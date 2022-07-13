@@ -9,11 +9,9 @@ class Api::UsersController < ApplicationController
   end
 
   def authenticate
-    response.headers['Set-Cookie'] = 'user_namae'
-
+    response.headers['Set-Cookie'] = "user_name=#{params[:user_name]}"
     @user = User.where(user_name: params[:user_name])
-    if @user.present?
-      @logged_in = true
+    if @user.present?   
       render json: { success: true, message: 'User logged in successfully' }, status: :ok
     else
       render json: { success: false, message: 'User not found' }, status: :not_found
