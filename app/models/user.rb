@@ -6,4 +6,6 @@ class User < ApplicationRecord
   validates :user_name, presence: true, length: { maximum: 20, minimum: 6 }
 
   validates :email, presence: true, length: { maximum: 100 }
+
+  has_many :appointments
 end
