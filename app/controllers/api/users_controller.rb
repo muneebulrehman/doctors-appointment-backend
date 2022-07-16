@@ -24,6 +24,13 @@ class Api::UsersController < ApplicationController
     render json: { success: true, message: 'User logged out successfully' }, status: :ok
   end
 
+  def test_login
+    # response.set_cookie('user_name', 'bobbob')
+    # response.headers['Set-Cookie'] = "user_name=bobbob"
+    cookies[:user_name] = 'bobbob'
+    p cookies, '__COOKIE__'
+  end
+
   private
 
   def user_params

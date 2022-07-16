@@ -9,12 +9,8 @@ Rails.application.routes.draw do
     resources :doctors, only: [:index, :show]
   end
 
-  # delete "#{api_route}/auth", to:'home#logout'
   resources :appointments, path: "#{api_route}/appointments"
 
   root to: 'home#index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get '/test/login', to: 'api/users#test_login'
 end

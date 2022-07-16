@@ -7,13 +7,7 @@ class ApplicationController < ActionController::API
   @current_user = nil # parse request and check username
 
   def authenticate_user
-    # COMMENT BELOW LINE IN PRODUCTION
-    # response.set_cookie('user_name', 'bobbob')
-    cookies[:user_name] = 'bobbob'
     return if cookies[:user_name] == 'nil'
-
-    # response.headers['Set-Cookie'] = "user_name=bobbob"
-    p cookies, 'HELLO'
     # binding.pry
     cookie = request.headers['Cookie']
     cookie_list = cookie&.split(';')
