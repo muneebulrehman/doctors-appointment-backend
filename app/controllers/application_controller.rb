@@ -8,14 +8,19 @@ class ApplicationController < ActionController::API
 
   def authenticate_user
     # COMMENT BELOW LINE IN PRODUCTION
-    response.set_cookie('user_name', 'bobbob')
+    # response.set_cookie('user_name', 'bobbob')
+    cookies[:user_name] = 'bobbob'
+    return if cookies[:user_name] == 'nil'
+
+    # response.headers['Set-Cookie'] = "user_name=bobbob"
+    p cookies, 'HELLO'
     # binding.pry
     cookie = request.headers['Cookie']
     cookie_list = cookie&.split(';')
+    return unless cookie_list
 
-    user_name_cookie = cookie_list&.select { |co| co.include?('user_name') }
-    
-    return unless user_name_cookie&.length&.positive?
+    user_name_cookie = cookie_list.select { |co| co.include?('user_name') }
+    return unless user_name_cookie.length.positive?
 
     user_name_cookie_splitted = user_name_cookie[0].split('=')
     return unless user_name_cookie_splitted.length
@@ -25,6 +30,8 @@ class ApplicationController < ActionController::API
 
   def de_authenticate_user
     response.delete_cookie('user_name')
+    cookies[:user_name] = 'nil'
+    p cookies, 'HELLO'
   end
 
   def request_user_id

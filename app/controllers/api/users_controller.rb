@@ -19,11 +19,10 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  # DOESNT FUCKING WORK
-  # def logout
-  #   de_authenticate_user
-  #   render json: { success: true, message: 'User logged out successfully' }, status: :ok
-  # end
+  def logout
+    de_authenticate_user
+    render json: { success: true, message: 'User logged out successfully' }, status: :ok
+  end
 
   private
 
