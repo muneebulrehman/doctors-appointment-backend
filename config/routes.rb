@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   namespace :api do
     post '/users', to: 'users#create'
     post '/auth', to: 'users#authenticate'
+    get '/auth/logout', to: 'users#logout'
     resources :doctors, only: [:index, :show]
   end
 
+  get "#{api_route}/logout", to:'home#logout'
   resources :appointments, path: "#{api_route}/appointments"
 
   root to: 'home#index'
