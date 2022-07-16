@@ -24,8 +24,7 @@ class ApplicationController < ActionController::API
 
   def de_authenticate_user
     response.delete_cookie('user_name')
-    cookies[:user_name] = 'nil'
-    p cookies, 'HELLO'
+    cookies[:user_name] = 'nil' # WORK AROUND FOR COOKIE DELETE PROBLEM
   end
 
   def request_user_id
