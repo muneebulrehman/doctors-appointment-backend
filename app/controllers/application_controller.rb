@@ -8,6 +8,7 @@ class ApplicationController < ActionController::API
 
   def authenticate_user
     return if cookies[:user_name] == 'nil'
+
     # binding.pry
     cookie = request.headers['Cookie']
     cookie_list = cookie&.split(';')
