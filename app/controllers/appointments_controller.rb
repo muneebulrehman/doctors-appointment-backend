@@ -11,7 +11,8 @@ class AppointmentsController < ApplicationController
     # binding.pry
     if @current_user
       user = User.where({ user_name: @current_user })
-      @appointments = Appointment.where({ user_id: user[0]&.id })
+      @appointments = Appointment.where({ user_id: user[0]&.id }).includes(:doctor).to_json(include: :doctor)
+
       render json: @appointments, status: :ok
     else
       render json: { error: appointment_error(:index) }, status: 422

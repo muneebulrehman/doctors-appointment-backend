@@ -14,9 +14,9 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
 
       response '200', 'appointments received' do
         let('Cookie') { "user_name=#{first_user&.user_name}" }
-        appointments = Appointment.where({ user_id: first_user&.id })
         run_test! do |res|
-          expect(res.body).to eq(appointments.to_json)
+          expect(JSON.parse(res.body)[0].keys).to eq(%w[id user_id doctor_id date created_at
+                                                        updated_at doctor])
         end
       end
 
