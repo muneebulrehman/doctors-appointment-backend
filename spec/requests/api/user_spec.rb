@@ -16,6 +16,7 @@ RSpec.describe 'api/users', type: :request do
         },
         required: %w[user_name email]
       }
+
       response '201', 'User created successfully' do
         let(:user) { { user_name: 'aquaman', email: 'aquaman@gmail.com' } }
         run_test!
