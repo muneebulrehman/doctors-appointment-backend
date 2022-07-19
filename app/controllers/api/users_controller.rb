@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   def create
-    if User.where(user_name: user_params[:user_name])
+    if User.exists?(user_name: user_params[:user_name])
       return render json: { success: false, message: 'Username is already taken' }, status: :unprocessable_entity
     end
 
