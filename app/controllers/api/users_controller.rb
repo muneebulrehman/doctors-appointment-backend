@@ -8,7 +8,7 @@ class Api::UsersController < ApplicationController
     if @user.save
       # response.headers['Set-Cookie'] = "user_name=#{user_params[:user_name]}"
       cookies[:user_name] = user_params[:user_name]
-      render json: { success: true, message: 'User created successfully' }, status: :created
+      render json: { success: true, message: 'User created successfully', user: @user }, status: :created
     else
       render json: { success: false, message: @user.errors.full_messages }, status: :unprocessable_entity
     end
