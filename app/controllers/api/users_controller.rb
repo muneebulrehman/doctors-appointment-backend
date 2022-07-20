@@ -19,11 +19,12 @@ class Api::UsersController < ApplicationController
     if @user.present?
       # response.headers['Set-Cookie'] = "user_name=#{params[:user_name]}"
       cookies[:user_name] = params[:user_name]
-        render json: { success: true, message: 'User logged in successfully', user: @user }, status: :ok
+      render json: { success: true, message: 'User logged in successfully', user: @user }, status: :ok
     else
       render json: { success: false, message: 'User not found' }
     end
   end
+
   def logout
     de_authenticate_user
     render json: { success: true, message: 'User logged out successfully' }, status: :ok
