@@ -1,12 +1,15 @@
 # Doctors Appointment backend (API)
 
 Backend repository for the final capstone project of the **Doctors Appointment**. Developed using Ruby on Rails, this is an API which responds in JSON.
+Visit the [Frontend repo](https://github.com/muneebulrehman/doctors-appointment-frontend)
 
 ### Preview
 
 ![Preview image](./snapshot.png)
 
 ### Live version
+
+[Check live version here](https://doctors-appointment-frontend.netlify.app/)
 
 ### Built with
 
@@ -47,10 +50,6 @@ Clone [this](https://github.com/muneebulrehman/doctors-appointment-backend.git) 
 Contributions, issues, and feature requrests are welcome!
 
 Feel free to check the [issues page](https://github.com/muneebulrehman/doctors-appointment-backend/issues).
-
-### Acknowledgments
-
-Thanks to [Murat Korkmaz](https://www.behance.net/gallery/26425031/Vespa-Responsive-Redesign) for providing the design.
 
 ### 📝 License
 
