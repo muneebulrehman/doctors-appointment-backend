@@ -26,9 +26,7 @@ class ApplicationController < ActionController::API
   def de_authenticate_user
     response.delete_cookie('user_name')
     # cookies[:user_name] = 'nil' # WORK AROUND FOR COOKIE DELETE PROBLEM
-    response.headers['Set-Cookie'] =
-      "user_name=nil; {httpOnly: true, secure: !dev, signed: true,
-        maxAge: (60 * 60 * 24 * 30) * 1000, sameSite: 'none'}"
+    response.headers['Set-Cookie'] = 'user_name=nil; path=/'
   end
 
   def request_user_id
