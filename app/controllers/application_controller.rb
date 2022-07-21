@@ -1,10 +1,17 @@
 require 'pry'
 
 class ApplicationController < ActionController::API
+  before_filter :add_allow_credentials_headers
   include ActionController::Cookies
   include ErrorHelper
   include SuccessHelper
   @current_user = nil # parse request and check username
+
+  def add_allow_credentials_headers
+    response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] || '*'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
+    response.headers['Access-Control-Allow-Headers'] = 'accept, content-type'
+  end
 
   def authenticate_user
     return if cookies[:user_name] == 'nil'
