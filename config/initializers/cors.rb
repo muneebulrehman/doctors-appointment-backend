@@ -14,7 +14,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
 
   allow do
-    origins 'https://doctors-appointment-frontend.netlify.app'
+    origins 'https://doctors-appointment-frontend.netlify.app/'
     resource '*',
       headers 'Access-Control-Allow-Origin: *',
       methods: [:get, :post, :put, :patch, :delete, :options, :head]
