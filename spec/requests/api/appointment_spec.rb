@@ -2,9 +2,9 @@ require 'swagger_helper'
 
 RSpec.describe 'APPOINTMENTS API', type: :request do
   first_user = User.all[0]
-  first_user_username = first_user.user_name
+  first_user_username = first_user&.user_name
   second_user = User.all[1]
-  second_user_username = second_user.user_name
+  second_user_username = second_user&.user_name
 
   path '/api/appointments' do
     get 'Retrieves all appointments of the user' do
