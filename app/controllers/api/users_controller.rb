@@ -6,7 +6,8 @@ class Api::UsersController < ApplicationController
 
     @user = User.new(user_params)
     if @user.save
-      cookies[:user_name] = user_params[:user_name]
+      # cookies[:user_name] = user_params[:user_name]
+      response.headers['Set-Cookie'] = "user_name=#{user_params[:user_name]}; path=/; SameSite=None; Secure"
       render json: { success: true, message: 'User created successfully', user: @user }, status: :created
     else
       render json: { success: false, message: @user.errors.full_messages }, status: :unprocessable_entity
@@ -16,7 +17,8 @@ class Api::UsersController < ApplicationController
   def authenticate
     @user = User.where(user_name: params[:user_name])
     if @user.present?
-      cookies[:user_name] = params[:user_name]
+      # cookies[:user_name] = params[:user_name]
+      response.headers['Set-Cookie'] = "user_name=#{params[:user_name]}; path=/; SameSite=None; Secure"
       render json: { success: true, message: 'User logged in successfully', user: @user }, status: :ok
     else
       render json: { success: false, message: 'User not found' }, status: :not_found
