@@ -9,9 +9,11 @@ class AppointmentsController < ApplicationController
   # GET /appointments
   def index
     # binding.pry
+    @current_user = User.where({ user_id: params[:user_id] })
     if @current_user
-      user = User.where({ user_name: @current_user })
-      @appointments = Appointment.where({ user_id: user[0]&.id }).includes(:doctor).to_json(include: :doctor)
+      # user = User.where({ user_name: @current_user })
+      # @appointments = Appointment.where({ user_id: user[0]&.id }).includes(:doctor).to_json(include: :doctor)
+      @appointments = Appointment.where({ user_id: params[:user_id] }).includes(:doctor).to_json(include: :doctor)
 
       render json: @appointments, status: :ok
     else
@@ -26,7 +28,7 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments
   def create
-    params[:user_id] = request_user_id
+    # params[:user_id] = request_user_id
     params[:date] = params[:date]&.to_datetime
 
     @appointment = Appointment.new(appointment_params)
