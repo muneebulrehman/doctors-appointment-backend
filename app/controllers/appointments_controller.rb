@@ -2,7 +2,7 @@ require 'pry'
 
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show update destroy]
-  before_action :authenticate_user
+  # before_action :authenticate_user
 
   rescue_from Date::Error, with: :invalid_date
 

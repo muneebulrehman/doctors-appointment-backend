@@ -3,10 +3,10 @@ require 'swagger_helper'
 RSpec.describe 'APPOINTMENTS API', type: :request do
   first_user = User.all[0]
   # first_user_username = first_user&.user_name
-  first_user_username = first_user&.id
-  second_user = User.all[1]
+  # first_user_username = first_user&.id
+  # second_user = User.all[1]
   # second_user_username = second_user&.user_name
-  second_user_username = second_user&.id
+  # second_user_username = second_user&.id
   doctor = Doctor.all[0]
 
   path '/api/appointments' do
@@ -29,18 +29,18 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
       # end
       response '200', 'List of appointments' do
         schema type: :array,
-        items:{
-          type: :object,
-          properties: {
-            id: { type: :integer },
-            user_id: { type: :integer },
-            doctor_id: { type: :integer },
-            date: { type: :string },
-            created_at: { type: :string },
-            updated_at: { type: :string },
-            doctor: { type: :object}
-          }
-        }
+               items: {
+                 type: :object,
+                 properties: {
+                   id: { type: :integer },
+                   user_id: { type: :integer },
+                   doctor_id: { type: :integer },
+                   date: { type: :string },
+                   created_at: { type: :string },
+                   updated_at: { type: :string },
+                   doctor: { type: :object }
+                 }
+               }
         run_test!
       end
     end
@@ -72,7 +72,7 @@ RSpec.describe 'APPOINTMENTS API', type: :request do
                  created_at: { type: :date },
                  updated_at: { type: :date }
                }
-              #  required: %w[id user_id doctor_id]
+        #  required: %w[id user_id doctor_id]
 
         # appointments = Appointment.where({ user_id: first_user.id })
         # # p 'APPOINTMENT ID = ', appointments[0].id
