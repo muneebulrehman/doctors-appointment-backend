@@ -11,6 +11,19 @@ Visit the [Frontend repo](https://github.com/muneebulrehman/doctors-appointment-
 
 [Check live version here](https://doctors-appointment-frontend.netlify.app/)
 
+### Kanban board
+
+[Link](https://github.com/muneebulrehman/doctors-appointment-backend/projects/1)
+
+[Kanban Board preview](https://github.com/muneebulrehman/doctors-appointment-backend/issues/11)
+
+### Team information
+
+We are a team of two.
+
+1. [@Muneeb ul Rehman](https://github.com/muneebulrehman)
+2. [@damdafayton](https://github.com/damdafayton)
+
 ### Built with
 
 - Ruby on Rails
